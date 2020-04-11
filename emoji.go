@@ -1,9 +1,7 @@
-// Package emoji parse emoji in strings
+// Package emoji is designed to recognize and parse
+// every indivisual Unicode Emoji characters from a string.
 //
-// Documents:
-//
-// emoji-data.txt: http://www.unicode.org/Public/emoji/5.0/emoji-data.txt
-// emoji-sequences.txt: http://unicode.org/Public/emoji/5.0/emoji-sequences.txt
+// Unicode Emoji Documents: http://www.unicode.org/Public/emoji/13.0/
 package emoji
 
 import (
@@ -12,7 +10,7 @@ import (
 	"github.com/Andrew-M-C/go.emoji/official"
 )
 
-// ReplaceAllEmojiFunc search string and find all emojis
+// ReplaceAllEmojiFunc searches string and find all emojis.
 func ReplaceAllEmojiFunc(s string, f func(emoji string) string) string {
 	buff := bytes.Buffer{}
 	nextIndex := 0

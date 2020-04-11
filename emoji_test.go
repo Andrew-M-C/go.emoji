@@ -12,6 +12,12 @@ func TestUnicode(t *testing.T) {
 	buff := bytes.Buffer{}
 
 	// ==== Emoji_presentation_sequence ====
+
+	// thunder default mode
+	buff.WriteRune(0x26A1)
+	printf("%s", buff.String())
+	buff.Reset()
+
 	// thunder text mode
 	buff.WriteRune(0x26A1)
 	buff.WriteRune(0xFE0E)
@@ -57,6 +63,8 @@ func TestUnicode(t *testing.T) {
 	buff.WriteRune(0x1F468)
 	buff.WriteRune(0x200D)
 	buff.WriteRune(0x1F469)
+	buff.WriteRune(0x200D)
+	buff.WriteRune(0x1F467)
 	buff.WriteRune(0x200D)
 	buff.WriteRune(0x1F466)
 	buff.WriteRune(0x1F46a)

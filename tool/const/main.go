@@ -9,6 +9,15 @@ import (
 	"strings"
 )
 
+// references
+// https://xbuba.com/questions/54450823
+// https://www.jianshu.com/p/65f5139f73ad
+// https://juejin.im/post/5b47564b51882519ec07e9ec
+// https://www.jianshu.com/p/9682f8ce1260
+
+// official source file:
+// http://www.unicode.org/Public/emoji/13.0/emoji-sequences.txt
+
 const (
 	emojiDataFile   = "../../official/emoji-sequences.txt"
 	emojiZwjSeqFile = "../../official/emoji-zwj-sequences.txt"
@@ -115,6 +124,7 @@ func parseEmojiDataLine(line string) {
 			check(err)
 			comment := parts[1] + fmt.Sprintf(" ==> %c", rune(i))
 			addRecord([]rune{rune(i)}, comment)
+			addRecord([]rune{rune(i), 0xFE0E}, comment)
 		}
 		return
 	}
@@ -130,6 +140,12 @@ func parseEmojiDataLine(line string) {
 
 	comment := parts[1] + fmt.Sprintf(" ==> %s", string(runes))
 	addRecord(runes, comment)
+
+	// Add U+HHHH U+FE0E sequences, which are not defined in official sequence
+	if 1 == len(runes) {
+		runes = append(runes, 0xFE0E)
+		addRecord(runes, comment)
+	}
 
 	return
 }
@@ -164,8 +180,10 @@ func printEmojiDataParam() {
 	}
 
 	// file heading
-	f.WriteString("// Package official indicates official unicode emoji variables\n")
+	f.WriteString("// Package official indicates official unicode emoji variables.\n")
+	f.WriteString("//\n")
 	f.WriteString("// Reference: https://www.unicode.org/Public/emoji/13.0/emoji-sequences.txt\n")
+	f.WriteString("//\n")
 	f.WriteString("// " + emojiDataFileVer + "\n")
 	f.WriteString("package official\n\n")
 
