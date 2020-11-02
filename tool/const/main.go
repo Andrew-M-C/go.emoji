@@ -185,7 +185,7 @@ func printEmojiDataParam() {
 	// file heading
 	f.WriteString("// Package official indicates official unicode emoji variables.\n")
 	f.WriteString("//\n")
-	f.WriteString("// Reference: https://www.unicode.org/Public/emoji/13.0/emoji-sequences.txt\n")
+	f.WriteString("// Reference: https://www.unicode.org/Public/emoji/13.1/emoji-sequences.txt\n")
 	f.WriteString("//\n")
 	f.WriteString("// " + emojiDataFileVer + "\n")
 	f.WriteString("package official\n\n")

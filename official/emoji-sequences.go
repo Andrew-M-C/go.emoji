@@ -1,6 +1,6 @@
 // Package official indicates official unicode emoji variables.
 //
-// Reference: https://www.unicode.org/Public/emoji/13.0/emoji-sequences.txt
+// Reference: https://www.unicode.org/Public/emoji/13.1/emoji-sequences.txt
 //
 // Date: 2020-08-30, 17:14:54 GMT
 package official
