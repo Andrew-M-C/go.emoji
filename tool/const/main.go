@@ -16,7 +16,7 @@ import (
 // https://www.jianshu.com/p/9682f8ce1260
 
 // official source file:
-// http://www.unicode.org/Public/emoji/13.0/emoji-sequences.txt
+// http://www.unicode.org/Public/emoji/13.1/emoji-sequences.txt
 
 const (
 	emojiDataFile   = "../../official/emoji-sequences.txt"
