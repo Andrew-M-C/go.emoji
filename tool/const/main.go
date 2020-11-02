@@ -117,11 +117,14 @@ func parseEmojiDataLine(line string) {
 	parts[0] = strings.TrimSpace(parts[0])
 
 	digits := strings.Split(parts[0], "..")
-	if len(digits) > 1 {
+	if len(digits) >= 2 {
 		// basic emoji unicode list with range
-		for _, d := range digits {
-			i, err := strconv.ParseInt(d, 16, 32)
-			check(err)
+		min, err := strconv.ParseInt(digits[0], 16, 32)
+		check(err)
+		max, err := strconv.ParseInt(digits[1], 16, 32)
+		check(err)
+
+		for i := min; i <= max; i++ {
 			comment := parts[1] + fmt.Sprintf(" ==> %c", rune(i))
 			addRecord([]rune{rune(i)}, comment)
 			addRecord([]rune{rune(i), 0xFE0E}, comment)
