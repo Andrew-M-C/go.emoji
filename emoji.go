@@ -1,7 +1,7 @@
 // Package emoji is designed to recognize and parse
 // every indivisual Unicode Emoji characters from a string.
 //
-// Unicode Emoji Documents: http://www.unicode.org/Public/emoji/13.0/
+// Unicode Emoji Documents: http://www.unicode.org/Public/emoji/13.1/
 package emoji
 
 import (
