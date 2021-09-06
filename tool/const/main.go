@@ -16,7 +16,7 @@ import (
 // https://www.jianshu.com/p/9682f8ce1260
 
 // official source file:
-// http://www.unicode.org/Public/emoji/13.1/emoji-sequences.txt
+// http://www.unicode.org/Public/emoji/14.0/emoji-sequences.txt
 
 const (
 	emojiDataFile   = "../../official/emoji-sequences.txt"
@@ -24,11 +24,11 @@ const (
 
 	emojiDataGoFile = "../../official/emoji-sequences.go"
 
-	typeEmojiBasic            = " Basic_Emoji "
-	typeEmojiKeycapSequence   = " Emoji_Keycap_Sequence "
-	typeEmojiFlagSequence     = " RGI_Emoji_Flag_Sequence "
-	typeEmojiTagSequence      = " RGI_Emoji_Tag_Sequence "
-	typeEmojiModifierSequence = " RGI_Emoji_Modifier_Sequence "
+	// typeEmojiBasic            = " Basic_Emoji "
+	// typeEmojiKeycapSequence   = " Emoji_Keycap_Sequence "
+	// typeEmojiFlagSequence     = " RGI_Emoji_Flag_Sequence "
+	// typeEmojiTagSequence      = " RGI_Emoji_Tag_Sequence "
+	// typeEmojiModifierSequence = " RGI_Emoji_Modifier_Sequence "
 )
 
 type record struct {
@@ -61,14 +61,12 @@ func addRecord(digits []rune, comment string) {
 			comment: comment,
 		})
 	}
-	return
 }
 
 func main() {
 	parseEmojiData(emojiDataFile)
 	parseEmojiData(emojiZwjSeqFile)
 	printEmojiDataParam()
-	return
 }
 
 func parseEmojiData(filepath string) {
@@ -78,7 +76,7 @@ func parseEmojiData(filepath string) {
 
 	buff := bufio.NewReader(f)
 	done := false
-	for false == done {
+	for !done {
 		line, _, err := buff.ReadLine()
 		if err != nil {
 			if err.Error() == "EOF" {
@@ -93,12 +91,12 @@ func parseEmojiData(filepath string) {
 }
 
 func parseEmojiDataLine(line string) {
-	if 0 == len(line) {
+	if len(line) == 0 {
 		return
 	}
 
 	line = strings.TrimSpace(line)
-	if '#' == line[0] {
+	if line[0] == '#' {
 		if strings.HasPrefix(line, "# Date: ") {
 			line := strings.TrimLeft(line, "# ")
 			emojiDataFileVer = line
@@ -145,12 +143,10 @@ func parseEmojiDataLine(line string) {
 	addRecord(runes, comment)
 
 	// Add U+HHHH U+FE0E sequences, which are not defined in official sequence
-	if 1 == len(runes) {
+	if len(runes) == 1 {
 		runes = append(runes, 0xFE0E)
 		addRecord(runes, comment)
 	}
-
-	return
 }
 
 func printEmojiDataParam() {
@@ -179,7 +175,6 @@ func printEmojiDataParam() {
 			)
 			f.WriteString(s)
 		}
-		return
 	}
 
 	// file heading
@@ -192,6 +187,4 @@ func printEmojiDataParam() {
 
 	// varaibles
 	printRecords("AllSequences", sequences, "initAllSequences")
-
-	return
 }
