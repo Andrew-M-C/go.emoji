@@ -5,6 +5,8 @@
 
 This Package `emoji` is designed to recognize and parse every indivisual Unicode Emoji characters from a string.
 
+Current emoji version: [15.0](https://www.unicode.org/Public/emoji/)
+
 ## Example
 
 ```go
