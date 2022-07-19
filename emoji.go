@@ -1,7 +1,7 @@
 // Package emoji is designed to recognize and parse
 // every indivisual Unicode Emoji characters from a string.
 //
-// Unicode Emoji Documents: http://www.unicode.org/Public/emoji/13.1/
+// Unicode Emoji Documents: https://www.unicode.org/Public/emoji/
 package emoji
 
 import (
@@ -21,7 +21,7 @@ func ReplaceAllEmojiFunc(s string, f func(emoji string) string) string {
 		}
 
 		match, length := official.AllSequences.HasEmojiPrefix(s[i:])
-		if false == match {
+		if !match {
 			buff.WriteRune(r)
 			continue
 		}
