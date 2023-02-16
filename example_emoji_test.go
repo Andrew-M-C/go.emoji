@@ -24,3 +24,28 @@ func ExampleReplaceAllEmojiFunc() {
 	// 02 - 🇨🇳 - len 8
 	// final: <1-2->
 }
+
+func ExampleIterateChars() {
+	s := "China:🇨🇳;Japan:🇯🇵"
+
+	for it := emoji.IterateChars(s); it.Next(); {
+		fmt.Println(it.Current(), "-", it.CurrentIsEmoji())
+	}
+
+	// Output:
+	// C - false
+	// h - false
+	// i - false
+	// n - false
+	// a - false
+	// : - false
+	// 🇨🇳 - true
+	// ; - false
+	// J - false
+	// a - false
+	// p - false
+	// a - false
+	// n - false
+	// : - false
+	// 🇯🇵 - true
+}

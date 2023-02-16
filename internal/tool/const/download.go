@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"regexp"
@@ -49,9 +48,9 @@ func downloadEmoji() {
 	zwj, err := httpGet(emojiOfficialURL + latest + "/" + emojiOfficialZwjSeqFile)
 	check(err)
 
-	err = ioutil.WriteFile(emojiDataFile, []byte(basic), 0644)
+	err = os.WriteFile(emojiDataFile, []byte(basic), 0644)
 	check(err)
-	err = ioutil.WriteFile(emojiZwjSeqFile, []byte(zwj), 0644)
+	err = os.WriteFile(emojiZwjSeqFile, []byte(zwj), 0644)
 	check(err)
 
 	referenceURL = emojiOfficialURL + latest + "/"
@@ -100,16 +99,16 @@ func httpGet(u string) (res string, err error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		b, _ := ioutil.ReadAll(resp.Body)
+		b, _ := io.ReadAll(resp.Body)
 		return "", fmt.Errorf("HTTP status %d, body '%s'", resp.StatusCode, string(b))
 	}
 
-	b, err := ioutil.ReadAll(resp.Body)
+	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		if errors.Is(err, io.EOF) {
 			return string(b), nil
 		}
-		return "", fmt.Errorf("ioutil.ReadAll error: %w", err)
+		return "", fmt.Errorf("io.ReadAll error: %w", err)
 	}
 
 	return string(b), nil

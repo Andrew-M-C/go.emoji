@@ -4,10 +4,26 @@ import (
 	"bytes"
 	"fmt"
 	"testing"
+
+	"github.com/smartystreets/goconvey/convey"
 )
 
+var (
+	cv = convey.Convey
+	so = convey.So
+	eq = convey.ShouldEqual
+
+	notPanic = convey.ShouldNotPanic
+)
+
+func TestEmoji(t *testing.T) {
+	cv("visualize unicode", t, func() { testUnicode((t)) })
+	cv("ReplaceAllEmojiFunc()", t, func() { testReplaceAllEmojiFunc(t) })
+	cv("IterateChars()", t, func() { testIterateChars(t) })
+}
+
 // reference: https://www.jianshu.com/p/9682f8ce1260
-func TestUnicode(t *testing.T) {
+func testUnicode(t *testing.T) {
 	printf := t.Logf
 	buff := bytes.Buffer{}
 
@@ -83,7 +99,7 @@ func TestUnicode(t *testing.T) {
 	buff.Reset()
 }
 
-func TestReplace(t *testing.T) {
+func testReplaceAllEmojiFunc(t *testing.T) {
 	printf := t.Logf
 
 	s := "👩‍👩‍👦🇨🇳"
@@ -96,4 +112,41 @@ func TestReplace(t *testing.T) {
 	})
 
 	printf("final: <%s>", final)
+}
+
+func testIterateChars(t *testing.T) {
+	cv("common case", func() {
+		const s = "China🇨🇳US🇺🇸"
+
+		i := 0
+		expectRune := []string{"C", "h", "i", "n", "a", "🇨🇳", "U", "S", "🇺🇸"}
+		expectBool := []bool{false, false, false, false, false, true, false, false, true}
+
+		for it := IterateChars(s); it.Next(); i++ {
+			so(it.Current(), eq, expectRune[i])
+			so(it.CurrentIsEmoji(), eq, expectBool[i])
+		}
+
+		so(i, eq, len(expectRune))
+	})
+
+	cv("empty string", func() {
+		so(func() {
+			for it := IterateChars(""); it.Next(); {
+				panic("should NOT iterate!")
+			}
+		}, notPanic)
+	})
+
+	cv("string without emoji", func() {
+		const s = "Golang"
+
+		i := 0
+		for it := IterateChars(s); it.Next(); i++ {
+			so(it.Current(), eq, string(s[i]))
+		}
+
+		so(i, eq, len(s))
+	})
+
 }

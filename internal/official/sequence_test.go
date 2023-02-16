@@ -6,5 +6,4 @@ import (
 
 func TestAllSequences(t *testing.T) {
 	AllSequences.printAllSequences()
-	return
 }

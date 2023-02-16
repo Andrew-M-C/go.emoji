@@ -39,7 +39,7 @@ func (seq Sequences) AddSequence(s []rune, comment string) {
 	total := len(s)
 	for i, r := range s {
 		node, exist := parentSeq[r]
-		if false == exist {
+		if !exist {
 			node = newSequence(r)
 			parentSeq[r] = node
 		}
@@ -51,8 +51,6 @@ func (seq Sequences) AddSequence(s []rune, comment string) {
 
 		parentSeq = node.Nexts
 	}
-
-	return
 }
 
 // HasEmojiPrefix checks whether a string is started with an emoji
@@ -67,7 +65,41 @@ func (seq Sequences) HasEmojiPrefix(s string) (has bool, length int) {
 		}
 
 		node, exist := nodes[r]
-		if false == exist {
+		if !exist {
+			// log.Printf("End %v - %v - %s", has, length, s[:length])
+			return
+		}
+
+		// log.Printf("match %s", string(r))
+		if node.End {
+			has = true
+			lastRuneMatch = true
+		}
+
+		nodes = node.Nexts
+	}
+
+	if lastRuneMatch {
+		lastRuneMatch = false
+		length = len(s)
+	}
+	// log.Printf("End %v - %v - %s", has, length, s[:length])
+	return
+}
+
+// HasEmojiPrefixRunes is the same as HasEmojiPrefix, but receives []rune
+func (seq Sequences) HasEmojiPrefixRunes(s []rune) (has bool, length int) {
+	nodes := seq
+	lastRuneMatch := false
+
+	for i, r := range s {
+		if lastRuneMatch {
+			lastRuneMatch = false
+			length = i
+		}
+
+		node, exist := nodes[r]
+		if !exist {
 			// log.Printf("End %v - %v - %s", has, length, s[:length])
 			return
 		}
@@ -93,7 +125,6 @@ func (seq Sequences) printAllSequences() {
 	for _, s := range seq {
 		s.printLine([]rune{})
 	}
-	return
 }
 
 func (seq Sequence) printLine(parents []rune) {
@@ -113,5 +144,4 @@ func (seq Sequence) printLine(parents []rune) {
 	for _, r := range seq.Nexts {
 		r.printLine(parents)
 	}
-	return
 }

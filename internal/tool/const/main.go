@@ -21,10 +21,10 @@ const (
 	emojiOfficialSeqFile    = "emoji-sequences.txt"
 	emojiOfficialZwjSeqFile = "emoji-zwj-sequences.txt"
 
-	emojiDataFile   = "../../../official/emoji-sequences.txt"
-	emojiZwjSeqFile = "../../../official/emoji-zwj-sequences.txt"
+	emojiDataFile   = "../../../internal/official/emoji-sequences.txt"
+	emojiZwjSeqFile = "../../../internal/official/emoji-zwj-sequences.txt"
 
-	emojiDataGoFile = "../../../official/emoji-sequences.go"
+	emojiDataGoFile = "../../../internal/official/emoji-sequences.go"
 
 	// typeEmojiBasic            = " Basic_Emoji "
 	// typeEmojiKeycapSequence   = " Emoji_Keycap_Sequence "
