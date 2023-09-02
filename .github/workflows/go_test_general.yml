@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - 'master'
+    - 'feature/**'
+    - 'dev/**'
+
+env:
+  CODECOV_TOKEN: '69b7ce5f-1937-4405-a44c-6d38dcd0f94b'
+  MAIN_GO_VER: '1.19'
+  MAIN_HOST_OS: 'ubuntu-latest'
+
+jobs:
+  go_test_and_coverage:
+    strategy:
+      max-parallel: 6
+      matrix:
+        GO_VER: ['1.19']
+        HOST_OS: ['ubuntu-latest']
+
+    runs-on: ${{ matrix.HOST_OS }}
+
+    steps:
+
+    - name: Checkout Repositary
+      uses: actions/checkout@v3
+
+    - name: Setup Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: ${{ matrix.GO_VER }}
+      id: go
+
+    - name: Get Dependencies
+      run: |
+        echo GO_VER = ${{ matrix.GO_VER }}
+        go get golang.org/x/tools/cmd/cover
+        go get github.com/mattn/goveralls
+        go mod tidy
+
+    - name: Show Environments
+      run: |
+        echo repo status ======== && git status
+        echo GITHUB_REF = ${{ env.GITHUB_REF }}
+        echo GITHUB_REF_NAME = ${{ env.GITHUB_REF_NAME }}
+        echo GO_VER = ${{ matrix.GO_VER }}
+        echo HOST_OS = ${{ matrix.HOST_OS }}
+        echo envs ======== && printenv
