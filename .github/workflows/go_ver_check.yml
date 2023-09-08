@@ -43,8 +43,6 @@ jobs:
     - name: Show Environments
       run: |
         echo repo status ======== && git status
-        echo GITHUB_REF = ${{ env.GITHUB_REF }}
-        echo GITHUB_REF_NAME = ${{ env.GITHUB_REF_NAME }}
         echo GO_VER = ${{ matrix.GO_VER }}
         echo HOST_OS = ${{ matrix.HOST_OS }}
         echo envs ======== && printenv
@@ -55,8 +53,6 @@ jobs:
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       with:
         files: ./coverage.out
         fail_ci_if_error: true
