@@ -18,10 +18,14 @@ import (
 const (
 	emojiOfficialURL = "https://www.unicode.org/Public/emoji/"
 
+	emojiOldDataFileVer = "12.1"
+
+	emojiOfficialDataFile   = "emoji-data.txt"
 	emojiOfficialSeqFile    = "emoji-sequences.txt"
 	emojiOfficialZwjSeqFile = "emoji-zwj-sequences.txt"
 
-	emojiDataFile   = "../../../internal/official/emoji-sequences.txt"
+	emojiDataFile   = "../../../internal/official/emoji-data.txt"
+	emojiSeqFile    = "../../../internal/official/emoji-sequences.txt"
 	emojiZwjSeqFile = "../../../internal/official/emoji-zwj-sequences.txt"
 
 	emojiDataGoFile = "../../../internal/official/emoji-sequences.go"
@@ -72,6 +76,7 @@ func addRecord(digits []rune, comment string) {
 func main() {
 	downloadEmoji()
 	parseEmojiData(emojiDataFile)
+	parseEmojiData(emojiSeqFile)
 	parseEmojiData(emojiZwjSeqFile)
 	printEmojiDataParam()
 }

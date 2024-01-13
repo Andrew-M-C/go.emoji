@@ -40,6 +40,10 @@ func downloadEmoji() {
 		}
 	}
 
+	// check old emoji-data file
+	data, err := httpGet(emojiOfficialURL + emojiOldDataFileVer + "/" + emojiOfficialDataFile)
+	check(err)
+
 	printf("latest version: %v", latest)
 
 	// get emoji and zwj files
@@ -48,7 +52,9 @@ func downloadEmoji() {
 	zwj, err := httpGet(emojiOfficialURL + latest + "/" + emojiOfficialZwjSeqFile)
 	check(err)
 
-	err = os.WriteFile(emojiDataFile, []byte(basic), 0644)
+	err = os.WriteFile(emojiDataFile, []byte(data), 0644)
+	check(err)
+	err = os.WriteFile(emojiSeqFile, []byte(basic), 0644)
 	check(err)
 	err = os.WriteFile(emojiZwjSeqFile, []byte(zwj), 0644)
 	check(err)

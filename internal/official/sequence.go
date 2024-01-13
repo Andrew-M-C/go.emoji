@@ -12,7 +12,7 @@ type Sequences map[rune]*Sequence
 type Sequence struct {
 	Rune    rune
 	End     bool
-	Nexts   Sequences
+	Next    Sequences
 	Comment string
 }
 
@@ -21,7 +21,7 @@ func newSequence(r rune) *Sequence {
 	return &Sequence{
 		Rune:    r,
 		End:     false,
-		Nexts:   Sequences{},
+		Next:    Sequences{},
 		Comment: "",
 	}
 }
@@ -49,7 +49,7 @@ func (seq Sequences) AddSequence(s []rune, comment string) {
 			node.Comment = comment
 		}
 
-		parentSeq = node.Nexts
+		parentSeq = node.Next
 	}
 }
 
@@ -76,11 +76,10 @@ func (seq Sequences) HasEmojiPrefix(s string) (has bool, length int) {
 			lastRuneMatch = true
 		}
 
-		nodes = node.Nexts
+		nodes = node.Next
 	}
 
 	if lastRuneMatch {
-		lastRuneMatch = false
 		length = len(s)
 	}
 	// log.Printf("End %v - %v - %s", has, length, s[:length])
@@ -110,11 +109,10 @@ func (seq Sequences) HasEmojiPrefixRunes(s []rune) (has bool, length int) {
 			lastRuneMatch = true
 		}
 
-		nodes = node.Nexts
+		nodes = node.Next
 	}
 
 	if lastRuneMatch {
-		lastRuneMatch = false
 		length = len(s)
 	}
 	// log.Printf("End %v - %v - %s", has, length, s[:length])
@@ -141,7 +139,7 @@ func (seq Sequence) printLine(parents []rune) {
 		fmt.Printf("%s \t- %s\n", string(parents), buff.String())
 	}
 
-	for _, r := range seq.Nexts {
+	for _, r := range seq.Next {
 		r.printLine(parents)
 	}
 }

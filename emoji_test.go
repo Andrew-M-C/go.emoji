@@ -20,6 +20,7 @@ func TestEmoji(t *testing.T) {
 	cv("visualize unicode", t, func() { testUnicode((t)) })
 	cv("ReplaceAllEmojiFunc()", t, func() { testReplaceAllEmojiFunc(t) })
 	cv("IterateChars()", t, func() { testIterateChars(t) })
+	cv("#3", t, func() { testIssue3(t) })
 }
 
 // reference: https://www.jianshu.com/p/9682f8ce1260
@@ -148,5 +149,19 @@ func testIterateChars(t *testing.T) {
 
 		so(i, eq, len(s))
 	})
+}
 
+func testIssue3(t *testing.T) {
+	str := string([]rune{0x2764, '|', 0x2764, 0xFE0F})
+	cnt := 0
+
+	final := ReplaceAllEmojiFunc(str, func(emoji string) string {
+		cnt++
+		return "heart"
+	})
+
+	so(cnt, eq, 2)
+	so(final, eq, "heart|heart")
+
+	t.Logf(str)
 }
