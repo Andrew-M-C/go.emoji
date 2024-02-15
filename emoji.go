@@ -1,5 +1,5 @@
 // Package emoji is designed to recognize and parse
-// every indivisual Unicode Emoji characters from a string.
+// every individual Unicode Emoji characters from a string.
 //
 // Unicode Emoji Documents: https://www.unicode.org/Public/emoji/
 package emoji

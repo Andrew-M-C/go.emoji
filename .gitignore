@@ -16,3 +16,6 @@
 
 # Coverage result files
 cover.*
+
+# OS files
+.DS_Store
