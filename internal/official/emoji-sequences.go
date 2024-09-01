@@ -2,9 +2,9 @@
 
 // Package official indicates official unicode emoji variables.
 //
-// Reference: https://www.unicode.org/Public/emoji/15.1/
+// Reference: https://www.unicode.org/Public/emoji/16.0/
 //
-// Date: 2023-06-05, 20:04:50 GMT
+// Date: 2024-08-14, 23:51:54 GMT
 package official
 
 func initAllSequences() {
@@ -15132,6 +15132,10 @@ func initAllSequences() {
 	AllSequences.AddSequence([]rune{0x1fa87, 0xfe0e}, "Basic_Emoji                   ==> 🪇")
 	AllSequences.AddSequence([]rune{0x1fa88}, "Basic_Emoji                   ==> 🪈")
 	AllSequences.AddSequence([]rune{0x1fa88, 0xfe0e}, "Basic_Emoji                   ==> 🪈")
+	AllSequences.AddSequence([]rune{0x1fa89}, "Basic_Emoji                   ==> 🪉")
+	AllSequences.AddSequence([]rune{0x1fa89, 0xfe0e}, "Basic_Emoji                   ==> 🪉")
+	AllSequences.AddSequence([]rune{0x1fa8f}, "Basic_Emoji                   ==> 🪏")
+	AllSequences.AddSequence([]rune{0x1fa8f, 0xfe0e}, "Basic_Emoji                   ==> 🪏")
 	AllSequences.AddSequence([]rune{0x1fa90}, "Basic_Emoji                   ==> 🪐")
 	AllSequences.AddSequence([]rune{0x1fa90, 0xfe0e}, "Basic_Emoji                   ==> 🪐")
 	AllSequences.AddSequence([]rune{0x1fa91}, "Basic_Emoji                   ==> 🪑")
@@ -15224,6 +15228,8 @@ func initAllSequences() {
 	AllSequences.AddSequence([]rune{0x1fabc, 0xfe0e}, "Basic_Emoji                   ==> 🪼")
 	AllSequences.AddSequence([]rune{0x1fabd}, "Basic_Emoji                   ==> 🪽")
 	AllSequences.AddSequence([]rune{0x1fabd, 0xfe0e}, "Basic_Emoji                   ==> 🪽")
+	AllSequences.AddSequence([]rune{0x1fabe}, "Basic_Emoji                   ==> 🪾")
+	AllSequences.AddSequence([]rune{0x1fabe, 0xfe0e}, "Basic_Emoji                   ==> 🪾")
 	AllSequences.AddSequence([]rune{0x1fabf}, "Basic_Emoji                   ==> 🪿")
 	AllSequences.AddSequence([]rune{0x1fabf, 0xfe0e}, "Basic_Emoji                   ==> 🪿")
 	AllSequences.AddSequence([]rune{0x1fac0}, "Basic_Emoji                   ==> 🫀")
@@ -15238,6 +15244,8 @@ func initAllSequences() {
 	AllSequences.AddSequence([]rune{0x1fac4, 0xfe0e}, "Basic_Emoji                   ==> 🫄")
 	AllSequences.AddSequence([]rune{0x1fac5}, "Basic_Emoji                   ==> 🫅")
 	AllSequences.AddSequence([]rune{0x1fac5, 0xfe0e}, "Basic_Emoji                   ==> 🫅")
+	AllSequences.AddSequence([]rune{0x1fac6}, "Basic_Emoji                   ==> 🫆")
+	AllSequences.AddSequence([]rune{0x1fac6, 0xfe0e}, "Basic_Emoji                   ==> 🫆")
 	AllSequences.AddSequence([]rune{0x1face}, "Basic_Emoji                   ==> 🫎")
 	AllSequences.AddSequence([]rune{0x1face, 0xfe0e}, "Basic_Emoji                   ==> 🫎")
 	AllSequences.AddSequence([]rune{0x1facf}, "Basic_Emoji                   ==> 🫏")
@@ -15266,6 +15274,10 @@ func initAllSequences() {
 	AllSequences.AddSequence([]rune{0x1fada, 0xfe0e}, "Basic_Emoji                   ==> 🫚")
 	AllSequences.AddSequence([]rune{0x1fadb}, "Basic_Emoji                   ==> 🫛")
 	AllSequences.AddSequence([]rune{0x1fadb, 0xfe0e}, "Basic_Emoji                   ==> 🫛")
+	AllSequences.AddSequence([]rune{0x1fadc}, "Basic_Emoji                   ==> 🫜")
+	AllSequences.AddSequence([]rune{0x1fadc, 0xfe0e}, "Basic_Emoji                   ==> 🫜")
+	AllSequences.AddSequence([]rune{0x1fadf}, "Basic_Emoji                   ==> 🫟")
+	AllSequences.AddSequence([]rune{0x1fadf, 0xfe0e}, "Basic_Emoji                   ==> 🫟")
 	AllSequences.AddSequence([]rune{0x1fae0}, "Basic_Emoji                   ==> 🫠")
 	AllSequences.AddSequence([]rune{0x1fae0, 0xfe0e}, "Basic_Emoji                   ==> 🫠")
 	AllSequences.AddSequence([]rune{0x1fae1}, "Basic_Emoji                   ==> 🫡")
@@ -15284,6 +15296,8 @@ func initAllSequences() {
 	AllSequences.AddSequence([]rune{0x1fae7, 0xfe0e}, "Basic_Emoji                   ==> 🫧")
 	AllSequences.AddSequence([]rune{0x1fae8}, "Basic_Emoji                   ==> 🫨")
 	AllSequences.AddSequence([]rune{0x1fae8, 0xfe0e}, "Basic_Emoji                   ==> 🫨")
+	AllSequences.AddSequence([]rune{0x1fae9}, "Basic_Emoji                   ==> 🫩")
+	AllSequences.AddSequence([]rune{0x1fae9, 0xfe0e}, "Basic_Emoji                   ==> 🫩")
 	AllSequences.AddSequence([]rune{0x1faf0}, "Basic_Emoji                   ==> 🫰")
 	AllSequences.AddSequence([]rune{0x1faf0, 0xfe0e}, "Basic_Emoji                   ==> 🫰")
 	AllSequences.AddSequence([]rune{0x1faf1}, "Basic_Emoji                   ==> 🫱")
@@ -15572,6 +15586,7 @@ func initAllSequences() {
 	AllSequences.AddSequence([]rune{0x1f1e8, 0x1f1f3}, "RGI_Emoji_Flag_Sequence       ==> 🇨🇳")
 	AllSequences.AddSequence([]rune{0x1f1e8, 0x1f1f4}, "RGI_Emoji_Flag_Sequence       ==> 🇨🇴")
 	AllSequences.AddSequence([]rune{0x1f1e8, 0x1f1f5}, "RGI_Emoji_Flag_Sequence       ==> 🇨🇵")
+	AllSequences.AddSequence([]rune{0x1f1e8, 0x1f1f6}, "RGI_Emoji_Flag_Sequence       ==> 🇨🇶")
 	AllSequences.AddSequence([]rune{0x1f1e8, 0x1f1f7}, "RGI_Emoji_Flag_Sequence       ==> 🇨🇷")
 	AllSequences.AddSequence([]rune{0x1f1e8, 0x1f1fa}, "RGI_Emoji_Flag_Sequence       ==> 🇨🇺")
 	AllSequences.AddSequence([]rune{0x1f1e8, 0x1f1fb}, "RGI_Emoji_Flag_Sequence       ==> 🇨🇻")

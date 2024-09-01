@@ -5,10 +5,10 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/Andrew-M-C/go.emoji)](https://goreportcard.com/report/github.com/Andrew-M-C/go.emoji)
 [![codebeat badge](https://codebeat.co/badges/c6f7e25f-a8fe-46a3-b4bf-a833aac65825)](https://codebeat.co/projects/github-com-andrew-m-c-go-emoji-master)
 
-[![GoDoc](https://pkg.go.dev/badge/github.com/Andrew-M-C/go.emoji)](https://pkg.go.dev/github.com/Andrew-M-C/go.emoji@v1.1.1)
+[![GoDoc](https://pkg.go.dev/badge/github.com/Andrew-M-C/go.emoji)](https://pkg.go.dev/github.com/Andrew-M-C/go.emoji@v1.1.2)
 [![](https://goreportcard.com/badge/github.com/Andrew-M-C/go.emoji)](https://goreportcard.com/report/github.com/Andrew-M-C/go.emoji)
-[![EmojiVer](https://img.shields.io/badge/Emoji-15.1-orange.svg)](https://www.unicode.org/Public/emoji/)
-[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![EmojiVer](https://img.shields.io/badge/Emoji-16.0-orange.svg)](https://www.unicode.org/Public/emoji/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?date=221104)](https://opensource.org/license/MIT)
 
 This Package `emoji` is designed to recognize and parse every individual Unicode Emoji characters from a string.
 
