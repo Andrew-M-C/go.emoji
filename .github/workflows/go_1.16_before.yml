@@ -1,4 +1,4 @@
-name: Build
+name: Go 1.15-
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 env:
   CODECOV_TOKEN: '69b7ce5f-1937-4405-a44c-6d38dcd0f94b'
-  MAIN_GO_VER: '1.21'
+  MAIN_GO_VER: '1.13'
   MAIN_HOST_OS: 'ubuntu-latest'
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
     strategy:
       max-parallel: 6
       matrix:
-        GO_VER: ['1.21']
+        GO_VER: ['1.13', '1.14', '1.15']
         HOST_OS: ['ubuntu-latest']
 
     runs-on: ${{ matrix.HOST_OS }}
@@ -37,12 +37,9 @@ jobs:
       run: |
         echo GO_VER = ${{ matrix.GO_VER }}
         go get golang.org/x/tools/cmd/cover
-        go install github.com/mattn/goveralls || go get github.com/mattn/goveralls
-        go mod tidy
+        go get github.com/mattn/goveralls
+        go get .
 
-    - name: Show Environments
+    - name: Go test
       run: |
-        echo repo status ======== && git status
-        echo GO_VER = ${{ matrix.GO_VER }}
-        echo HOST_OS = ${{ matrix.HOST_OS }}
-        echo envs ======== && printenv
+        go test -v -failfast -cover -covermode=atomic -coverprofile=coverage.out

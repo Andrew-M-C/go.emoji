@@ -1,4 +1,4 @@
-name: Build
+name: Go 1.16+
 
 on:
   push:
@@ -17,8 +17,8 @@ jobs:
     strategy:
       max-parallel: 6
       matrix:
-        GO_VER: ['1.21']
-        HOST_OS: ['ubuntu-latest']
+        GO_VER: ['1.16', '1.17', '1.18', '1.19', '1.20', '1.21', '1.22', '1.23']
+        HOST_OS: ['ubuntu-latest', 'macos-latest']
 
     runs-on: ${{ matrix.HOST_OS }}
 
@@ -38,11 +38,8 @@ jobs:
         echo GO_VER = ${{ matrix.GO_VER }}
         go get golang.org/x/tools/cmd/cover
         go install github.com/mattn/goveralls || go get github.com/mattn/goveralls
-        go mod tidy
+        go get .
 
-    - name: Show Environments
+    - name: Go test
       run: |
-        echo repo status ======== && git status
-        echo GO_VER = ${{ matrix.GO_VER }}
-        echo HOST_OS = ${{ matrix.HOST_OS }}
-        echo envs ======== && printenv
+        go test -v -failfast -cover -covermode=atomic -coverprofile=coverage.out
