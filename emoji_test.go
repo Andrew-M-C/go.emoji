@@ -1,10 +1,11 @@
-package emoji
+package emoji_test
 
 import (
 	"bytes"
 	"fmt"
 	"testing"
 
+	emoji "github.com/Andrew-M-C/go.emoji"
 	"github.com/smartystreets/goconvey/convey"
 )
 
@@ -12,6 +13,7 @@ var (
 	cv = convey.Convey
 	so = convey.So
 	eq = convey.ShouldEqual
+	le = convey.ShouldBeLessThan
 
 	notPanic = convey.ShouldNotPanic
 )
@@ -21,6 +23,7 @@ func TestEmoji(t *testing.T) {
 	cv("ReplaceAllEmojiFunc()", t, func() { testReplaceAllEmojiFunc(t) })
 	cv("IterateChars()", t, func() { testIterateChars(t) })
 	cv("#3", t, func() { testIssue3(t) })
+	cv("#4", t, func() { testIssue4(t) })
 }
 
 // reference: https://www.jianshu.com/p/9682f8ce1260
@@ -106,7 +109,7 @@ func testReplaceAllEmojiFunc(t *testing.T) {
 	s := "👩‍👩‍👦🇨🇳"
 	i := 0
 
-	final := ReplaceAllEmojiFunc(s, func(emoji string) string {
+	final := emoji.ReplaceAllEmojiFunc(s, func(emoji string) string {
 		i++
 		printf("%02d - %s - len %d", i, emoji, len(emoji))
 		return fmt.Sprintf("%d-", i)
@@ -123,9 +126,11 @@ func testIterateChars(t *testing.T) {
 		expectRune := []string{"C", "h", "i", "n", "a", "🇨🇳", "U", "S", "🇺🇸"}
 		expectBool := []bool{false, false, false, false, false, true, false, false, true}
 
-		for it := IterateChars(s); it.Next(); i++ {
+		for it := emoji.IterateChars(s); it.Next(); i++ {
+			t.Log(i, "-", it.Current(), "-", it.CurrentIsEmoji())
 			so(it.Current(), eq, expectRune[i])
 			so(it.CurrentIsEmoji(), eq, expectBool[i])
+			so(i, le, len(expectRune))
 		}
 
 		so(i, eq, len(expectRune))
@@ -133,7 +138,7 @@ func testIterateChars(t *testing.T) {
 
 	cv("empty string", func() {
 		so(func() {
-			for it := IterateChars(""); it.Next(); {
+			for it := emoji.IterateChars(""); it.Next(); {
 				panic("should NOT iterate!")
 			}
 		}, notPanic)
@@ -143,7 +148,7 @@ func testIterateChars(t *testing.T) {
 		const s = "Golang"
 
 		i := 0
-		for it := IterateChars(s); it.Next(); i++ {
+		for it := emoji.IterateChars(s); it.Next(); i++ {
 			so(it.Current(), eq, string(s[i]))
 		}
 
@@ -155,7 +160,7 @@ func testIssue3(t *testing.T) {
 	str := string([]rune{0x2764, '|', 0x2764, 0xFE0F})
 	cnt := 0
 
-	final := ReplaceAllEmojiFunc(str, func(emoji string) string {
+	final := emoji.ReplaceAllEmojiFunc(str, func(emoji string) string {
 		cnt++
 		return "heart"
 	})
@@ -163,5 +168,26 @@ func testIssue3(t *testing.T) {
 	so(cnt, eq, 2)
 	so(final, eq, "heart|heart")
 
-	t.Logf(str)
+	t.Log(str)
+}
+
+func testIssue4(t *testing.T) {
+	cv("original issue", func() {
+		// s := "China_1m"
+		s := "1"
+		i := 0
+		for it := emoji.IterateChars(s); it.Next(); i++ {
+			t.Log(i, "-", it.Current(), "-", it.CurrentIsEmoji())
+			so(it.CurrentIsEmoji(), eq, false)
+			so(i, le, len(s))
+		}
+	})
+
+	cv("extra study", func() {
+		s := "1234567890"
+		res := emoji.ReplaceAllEmojiFunc(s, func(emoji string) string {
+			return "*"
+		})
+		so(res, eq, s)
+	})
 }

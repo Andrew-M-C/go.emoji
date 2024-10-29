@@ -176,6 +176,12 @@ func printEmojiDataParam() {
 		}()
 
 		for _, rec := range records {
+			// Fix #4: previous version also treat some ascii as emoji, which
+			// should be ignored
+			if len(rec.runes) == 1 && rec.runes[0] < 0x7F {
+				continue
+			}
+
 			runesStr := []string{}
 			for _, r := range rec.runes {
 				runesStr = append(runesStr, fmt.Sprintf("0x%04x", r))
