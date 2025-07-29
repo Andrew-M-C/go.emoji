@@ -39,6 +39,8 @@ const (
 
 var (
 	referenceURL = ""
+	longestRunes [][]rune
+	longestBytes []string
 )
 
 type record struct {
@@ -79,6 +81,7 @@ func main() {
 	parseEmojiData(emojiSeqFile)
 	parseEmojiData(emojiZwjSeqFile)
 	printEmojiDataParam()
+	printLongestSequence()
 }
 
 func parseEmojiData(filepath string) {
@@ -183,8 +186,10 @@ func printEmojiDataParam() {
 			}
 
 			runesStr := []string{}
+			runes := []rune{}
 			for _, r := range rec.runes {
 				runesStr = append(runesStr, fmt.Sprintf("0x%04x", r))
+				runes = append(runes, r)
 			}
 
 			s := fmt.Sprintf(
@@ -194,6 +199,8 @@ func printEmojiDataParam() {
 				strings.TrimSpace(rec.comment),
 			)
 			_, _ = f.WriteString(s)
+
+			calculateLongestSequence(runes)
 		}
 	}
 
@@ -208,4 +215,46 @@ func printEmojiDataParam() {
 
 	// varaibles
 	printRecords("AllSequences", sequences, "initAllSequences")
+}
+
+func calculateLongestSequence(runes []rune) {
+	func() {
+		if len(longestRunes) == 0 {
+			longestRunes = [][]rune{runes}
+			return
+		}
+		if len(runes) > len(longestRunes[0]) {
+			longestRunes = [][]rune{runes}
+			return
+		}
+		if len(runes) == len(longestRunes[0]) {
+			longestRunes = append(longestRunes, runes)
+		}
+	}()
+
+	func() {
+		if len(longestBytes) == 0 {
+			longestBytes = []string{string(runes)}
+			return
+		}
+		s := string(runes)
+		if len(s) > len(longestBytes[0]) {
+			longestBytes = []string{s}
+			return
+		}
+		if len(s) == len(longestBytes[0]) {
+			longestBytes = append(longestBytes, s)
+		}
+	}()
+}
+
+func printLongestSequence() {
+	printf("longest rune length: %d, count: %d", len(longestRunes[0]), len(longestRunes))
+	for _, r := range longestRunes {
+		printf("- %s", string(r))
+	}
+	printf("longest bytes length: %d, count: %d", len(longestBytes[0]), len(longestBytes))
+	for _, b := range longestBytes {
+		printf("- %s", b)
+	}
 }
