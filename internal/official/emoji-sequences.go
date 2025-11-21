@@ -2,7 +2,7 @@
 
 // Package official indicates official unicode emoji variables.
 //
-// Reference: https://www.unicode.org/Public/emoji/17.0/
+// Reference: https://www.unicode.org/Public/emoji/latest/
 //
 // Date: 2025-01-08, 04:57:12 GMT
 package official
@@ -15262,8 +15262,6 @@ func initAllSequences() {
 	AllSequences.AddSequence([]rune{0x1fadb, 0xfe0e}, "Basic_Emoji                   ==> 🫛")
 	AllSequences.AddSequence([]rune{0x1fadc}, "Basic_Emoji                   ==> 🫜")
 	AllSequences.AddSequence([]rune{0x1fadc, 0xfe0e}, "Basic_Emoji                   ==> 🫜")
-	AllSequences.AddSequence([]rune{0x1fadd}, "Basic_Emoji                   ==> 🫝")
-	AllSequences.AddSequence([]rune{0x1fadd, 0xfe0e}, "Basic_Emoji                   ==> 🫝")
 	AllSequences.AddSequence([]rune{0x1fadf}, "Basic_Emoji                   ==> 🫟")
 	AllSequences.AddSequence([]rune{0x1fadf, 0xfe0e}, "Basic_Emoji                   ==> 🫟")
 	AllSequences.AddSequence([]rune{0x1fae0}, "Basic_Emoji                   ==> 🫠")

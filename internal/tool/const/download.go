@@ -6,44 +6,44 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"regexp"
 	"strconv"
 	"strings"
 )
 
 func downloadEmoji() {
-	// list and find latest emoji versions
-	s, err := httpGet(emojiOfficialURL)
-	var lines []string
-	check(err)
+	// // list and find latest emoji versions
+	// s, err := httpGet(emojiOfficialURL)
+	// var lines []string
+	// check(err)
 
-	if find := strings.SplitN(s, "Parent Directory", 2); len(find) == 1 {
-		printf("error, cannot find emoji sub directories")
-		os.Exit(-1)
-	} else {
-		lines = strings.Split(find[1], "\n")
-	}
+	// if find := strings.SplitN(s, "Parent Directory", 2); len(find) == 1 {
+	// 	printf("error, cannot find emoji sub directories")
+	// 	os.Exit(-1)
+	// } else {
+	// 	lines = strings.Split(find[1], "\n")
+	// }
 
-	latest := ""
-	rep := regexp.MustCompile(`(\d+\.\d+)\/.+20\d\d-[01]\d-\d\d`)
-	for _, line := range lines {
-		match := rep.FindStringSubmatch(line)
-		if len(match) < 2 {
-			continue
-		}
+	// latest := ""
+	// rep := regexp.MustCompile(`(\d+\.\d+)\/.+20\d\d-[01]\d-\d\d`)
+	// for _, line := range lines {
+	// 	match := rep.FindStringSubmatch(line)
+	// 	if len(match) < 2 {
+	// 		continue
+	// 	}
 
-		v := match[1]
-		printf("found version: %s", v)
+	// 	v := match[1]
+	// 	printf("found version: %s", v)
 
-		if vercmp(latest, v) < 0 {
-			latest = v
-		}
-	}
+	// 	if vercmp(latest, v) < 0 {
+	// 		latest = v
+	// 	}
+	// }
 
 	// check old emoji-data file
 	data, err := httpGet(emojiOfficialURL + emojiOldDataFileVer + "/" + emojiOfficialDataFile)
 	check(err)
 
+	latest := "latest"
 	printf("latest version: %v", latest)
 
 	// get emoji and zwj files
