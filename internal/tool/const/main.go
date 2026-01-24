@@ -16,13 +16,7 @@ import (
 // https://www.jianshu.com/p/9682f8ce1260
 
 const (
-	emojiOfficialURL = "https://www.unicode.org/Public/emoji/"
-
 	emojiOldDataFileVer = "12.1"
-
-	emojiOfficialDataFile   = "emoji-data.txt"
-	emojiOfficialSeqFile    = "emoji-sequences.txt"
-	emojiOfficialZwjSeqFile = "emoji-zwj-sequences.txt"
 
 	emojiDataFile   = "../../../internal/official/emoji-data.txt"
 	emojiSeqFile    = "../../../internal/official/emoji-sequences.txt"
@@ -30,12 +24,33 @@ const (
 
 	emojiDataGoFile = "../../../internal/official/emoji-sequences.go"
 
+	emojiLatestVersion = "17.0.0"
+
 	// typeEmojiBasic            = " Basic_Emoji "
 	// typeEmojiKeycapSequence   = " Emoji_Keycap_Sequence "
 	// typeEmojiFlagSequence     = " RGI_Emoji_Flag_Sequence "
 	// typeEmojiTagSequence      = " RGI_Emoji_Tag_Sequence "
 	// typeEmojiModifierSequence = " RGI_Emoji_Modifier_Sequence "
 )
+
+func dataFile(version, filename string) string {
+	return fmt.Sprintf(
+		"https://www.unicode.org/Public/%s/emoji/%s",
+		version, filename,
+	)
+}
+
+func emojiDataFileURL() string {
+	return fmt.Sprintf("https://www.unicode.org/Public/emoji/%s/emoji-data.txt", emojiOldDataFileVer)
+}
+
+func emojiSeqFileURL(version string) string {
+	return dataFile(version, "emoji-sequences.txt")
+}
+
+func emojiZwjSeqFileURL(version string) string {
+	return dataFile(version, "emoji-zwj-sequences.txt")
+}
 
 var (
 	referenceURL = ""

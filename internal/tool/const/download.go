@@ -6,50 +6,22 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"regexp"
-	"strconv"
-	"strings"
 )
 
 func downloadEmoji() {
 	// list and find latest emoji versions
-	s, err := httpGet(emojiOfficialURL)
-	var lines []string
-	check(err)
-
-	if find := strings.SplitN(s, "Parent Directory", 2); len(find) == 1 {
-		printf("error, cannot find emoji sub directories")
-		os.Exit(-1)
-	} else {
-		lines = strings.Split(find[1], "\n")
-	}
-
-	latest := ""
-	rep := regexp.MustCompile(`(\d+\.\d+)\/.+20\d\d-[01]\d-\d\d`)
-	for _, line := range lines {
-		match := rep.FindStringSubmatch(line)
-		if len(match) < 2 {
-			continue
-		}
-
-		v := match[1]
-		printf("found version: %s", v)
-
-		if vercmp(latest, v) < 0 {
-			latest = v
-		}
-	}
+	latest := emojiLatestVersion
 
 	// check old emoji-data file
-	data, err := httpGet(emojiOfficialURL + emojiOldDataFileVer + "/" + emojiOfficialDataFile)
+	data, err := httpGet(emojiDataFileURL())
 	check(err)
 
 	printf("latest version: %v", latest)
 
 	// get emoji and zwj files
-	basic, err := httpGet(emojiOfficialURL + latest + "/" + emojiOfficialSeqFile)
+	basic, err := httpGet(emojiSeqFileURL(latest))
 	check(err)
-	zwj, err := httpGet(emojiOfficialURL + latest + "/" + emojiOfficialZwjSeqFile)
+	zwj, err := httpGet(emojiZwjSeqFileURL(latest))
 	check(err)
 
 	err = os.WriteFile(emojiDataFile, []byte(data), 0644)
@@ -59,45 +31,12 @@ func downloadEmoji() {
 	err = os.WriteFile(emojiZwjSeqFile, []byte(zwj), 0644)
 	check(err)
 
-	referenceURL = emojiOfficialURL + latest + "/"
-}
-
-func vercmp(left, right string) int {
-	if left == "" {
-		if right == "" {
-			return 0
-		}
-		return -1
-	}
-	if right == "" {
-		return 1
-	}
-
-	toCode := func(s string) uint32 {
-		nums := strings.Split(s, ".")
-		if len(nums) == 1 {
-			n, _ := strconv.ParseUint(s, 10, 32)
-			return uint32(n) << 16
-		}
-
-		hi, _ := strconv.ParseUint(nums[0], 10, 32)
-		lo, _ := strconv.ParseUint(nums[1], 10, 32)
-		return (uint32(hi) << 16) + uint32(lo)
-	}
-
-	leftCode := toCode(left)
-	rightCode := toCode(right)
-
-	if leftCode < rightCode {
-		return -1
-	}
-	if leftCode > rightCode {
-		return 1
-	}
-	return 0
+	referenceURL = dataFile(latest, "")
 }
 
 func httpGet(u string) (res string, err error) {
+	printf("request: %s", u)
+
 	resp, err := http.Get(u)
 	if err != nil {
 		return "", fmt.Errorf("http.Get(%s) error: %w", u, err)
