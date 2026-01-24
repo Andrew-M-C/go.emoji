@@ -10,12 +10,14 @@ import (
 
 func downloadEmoji() {
 	// list and find latest emoji versions
-	latest := emojiLatestVersion
+	versions := listRemoteSubNodes(emojiOfficialBaseURL)
+	latest := findLatestVersion(versions)
 
 	// check old emoji-data file
 	data, err := httpGet(emojiDataFileURL())
 	check(err)
 
+	_ = listRemoteSubNodes(emojiOfficialBaseURL)
 	printf("latest version: %v", latest)
 
 	// get emoji and zwj files

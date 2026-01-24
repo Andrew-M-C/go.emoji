@@ -2,7 +2,7 @@
 
 // Package official indicates official unicode emoji variables.
 //
-// Reference: https://www.unicode.org/Public/17.0.0/emoji/
+// Reference: https://www.unicode.org/Public//17.0.0/emoji/
 //
 // Date: 2025-01-08, 04:57:12 GMT
 package official

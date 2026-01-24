@@ -18,13 +18,13 @@ import (
 const (
 	emojiOldDataFileVer = "12.1"
 
+	emojiOfficialBaseURL = "https://www.unicode.org/Public/"
+
 	emojiDataFile   = "../../../internal/official/emoji-data.txt"
 	emojiSeqFile    = "../../../internal/official/emoji-sequences.txt"
 	emojiZwjSeqFile = "../../../internal/official/emoji-zwj-sequences.txt"
 
 	emojiDataGoFile = "../../../internal/official/emoji-sequences.go"
-
-	emojiLatestVersion = "17.0.0"
 
 	// typeEmojiBasic            = " Basic_Emoji "
 	// typeEmojiKeycapSequence   = " Emoji_Keycap_Sequence "
@@ -35,13 +35,16 @@ const (
 
 func dataFile(version, filename string) string {
 	return fmt.Sprintf(
-		"https://www.unicode.org/Public/%s/emoji/%s",
-		version, filename,
+		"%s/%s/emoji/%s",
+		emojiOfficialBaseURL, version, filename,
 	)
 }
 
 func emojiDataFileURL() string {
-	return fmt.Sprintf("https://www.unicode.org/Public/emoji/%s/emoji-data.txt", emojiOldDataFileVer)
+	return fmt.Sprintf(
+		"%s/emoji/%s/emoji-data.txt",
+		emojiOfficialBaseURL, emojiOldDataFileVer,
+	)
 }
 
 func emojiSeqFileURL(version string) string {
